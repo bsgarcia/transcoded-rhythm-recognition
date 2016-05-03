@@ -13,9 +13,10 @@
 #guess the music genre the song belongs to.
 
 # -----------------------------------------------------------------------------
-import rpy2.robjects as rob
+
 import numpy as np
 from scipy import stats
+
 class MLP:
 
     """ Multi-layer perceptron class. """
@@ -180,7 +181,6 @@ class ChiefOperatingOfficer(object):
             self.fail += 1
 
     def test2(self,sample):
-
         a = self.network.propagate_forward(sample)
         a2 = a.tolist()
         b = np.max([a2])
@@ -360,7 +360,7 @@ if __name__ == '__main__':
 
 #------------------------------------------------------------------------------------------------
 #Stats
-#condition 1 / ANOVA
+#condition 1 / Kruskel - Wallis
 
     tab = np.zeros(101, dtype=[('capacités cognitives',  float, 1), ('entraînement', float, 1),('performances',float,1)])
 
@@ -381,12 +381,12 @@ if __name__ == '__main__':
         tab[i]['entraînement'] = 1
         tab[i]['performances'] = scores[i]
 
-    print tab
 
-    print stats.f_oneway(tab[0:26],tab[26:51],tab[51:76],tab[76:100])
-    r = rob.r
 
-    print r.anova(tab[0:26],tab[26:51],tab[51:76],tab[76:100])
+    print stats.mstats.kruskalwallis(tab[0:26],tab[26:51],tab[51:76],tab[76:100])
+
+
+
 
 #condition 1 / MAnn withney
     # for i in range(26,51):
@@ -417,7 +417,7 @@ if __name__ == '__main__':
     print stats.mannwhitneyu(j,d)
 
 
-  # CONDITION 2 / ANOVA-----------------------------------------------------------------------------------
+  # CONDITION 2 /Kruskel - Wallis
 
 
     tab = np.zeros(101, dtype=[('capacités cognitives',  float, 1), ('entraînement', float, 1),('performances',float,1)])
@@ -441,8 +441,8 @@ if __name__ == '__main__':
 
     
 
-    print stats.f_oneway(tab[0:26],tab[26:51],tab[51:76],tab[76:100])
-    print r.anova(tab[0:26],tab[26:51],tab[51:76],tab[76:100])
+    print stats.mstats.kruskalwallis(tab[0:26],tab[26:51],tab[51:76],tab[76:100])
+
     #CONDITION 2 / Mann - Withney
 
     j = []
